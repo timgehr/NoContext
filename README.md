@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # nocontext
 
 ## Project setup
