@@ -4,7 +4,7 @@
 - [ ] Remove edgy quotes
 
 ## Vue Background
-- [-] Make the necessary views
+- [x] Make the necessary views
 - [ ] Change between pages at the right time
 - [ ] Make sure both Mobile and Desktop Work
 
