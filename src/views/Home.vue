@@ -50,7 +50,8 @@ img {
   border: 0px;
   border-radius: 28px;
   height: 30vh;
-  width: 50vw;
+  min-width: 50vw;
+  width: 400px;
 }
 
 .hb1:hover {
