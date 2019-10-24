@@ -1,16 +1,15 @@
 <template>
   <div id="app">
+    <router-view/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import HelloWorld from './views/HelloWorld.vue'
 
 export default Vue.extend({
   name: 'app',
   components: {
-    HelloWorld
   }
 })
 </script>
@@ -22,7 +21,15 @@ export default Vue.extend({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #1a2530;
-  margin-top: 60px;
+  color: #283e55;
+  min-height: 100vh;
+}
+
+.homeButton {
+  background: rgb(121, 141, 255);
+  border: 0px;
+  border-radius: 10px;
+  height: 40px;
+  width: 100px;
 }
 </style>
