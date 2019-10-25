@@ -52,7 +52,7 @@ img {
   height: 25vh;
   min-width: 50vw;
   width: 400px;
-  max-width: 80vh;
+  max-width: 80w;
 }
 
 .hb1:hover {
