@@ -49,9 +49,10 @@ img {
   margin-bottom: 10px;
   border: 0px;
   border-radius: 28px;
-  height: 30vh;
+  height: 25vh;
   min-width: 50vw;
   width: 400px;
+  max-width: 90vw;
 }
 
 .hb1:hover {
