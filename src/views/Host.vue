@@ -17,7 +17,7 @@ export default Vue.extend({
     return {
       randNum: 0,
       players: [],
-      colors: ['rgb(134, 1, 1)', 'rgb(30, 151, 19)', 'rgb(248, 94, 38)', 'rgb(17, 66, 172)', 'rgb(128, 119, 0)', 'rgb(128, 0, 90)', 'rgb(86, 7, 151)']
+      colors: ['rgb(184, 0, 0)', 'rgb(20, 173, 6)', 'rgb(230, 122, 0)', 'rgb(0, 67, 211)', 'rgb(0, 175, 228)', 'rgb(202, 0, 142)', 'rgb(126, 0, 230)']
     }
   },
   methods: {
@@ -39,6 +39,7 @@ export default Vue.extend({
 .playerTable{
   display: grid;
   grid-template-columns: 33vw 34vw 33vw;
+  color: rgb(230, 122, 0);
 }
 
 .players{

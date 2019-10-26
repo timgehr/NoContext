@@ -29,6 +29,9 @@ export default Vue.extend({
       if (this.player.name.length > 20) {
         this.msg = 'Name too long!'
         this.player.name = ''
+      } else if (this.player.name.length < 1) {
+        this.msg = 'Please enter a name'
+        this.player.name = ''
       } else {
         this.player.color = Math.floor(7 * Math.random())
         db.collection('players').add(this.player)
