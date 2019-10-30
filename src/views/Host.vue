@@ -2,9 +2,9 @@
   <div id="host">
     <h1 style="margin-top: 0px; padding-top: 20px;">Waiting for Everyone to Join...</h1>
     <div class="playerTable">
-      <h2 v-for="player in players" v-bind:style="{color: colors[player.color]}" v-bind:key="player" class="players">{{player.name}}</h2>
+      <h2 v-for="player in players" v-bind:style="{color: colors[player.color]}" v-bind:key="player" class="players" v-on:click="removePlayer(player.name)">{{player.name}}</h2>
     </div>
-    <button class="startGame">START GAME</button>
+    <router-link v-on:click="startGame" to="/quiz" tag="button" class="startGame">START GAME</router-link>
   </div>
 </template>
 
@@ -21,6 +21,12 @@ export default Vue.extend({
     }
   },
   methods: {
+    removePlayer: function (name: string) {
+      // db.collection('players').delete()
+    },
+    startGame: function () {
+      this.$store.commit('setPlayers', this.players)
+    }
   },
   created () {
     db.collection('players').onSnapshot(res => {
@@ -46,7 +52,11 @@ export default Vue.extend({
   margin-top: 0px;
   font-size: 45px;
   font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(58, 58, 58, 0.486);
+  text-shadow: 1px 1px 1px rgba(156, 156, 156, 0.486);
+}
+
+.players:hover{
+  background: rgb(238, 177, 177);
 }
 
 .startGame{

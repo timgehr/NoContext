@@ -5,8 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    players: []
   },
   mutations: {
+    setPlayers: function (playersInGame) {
+      this.players = playersInGame
+    }
   },
   actions: {
   },
