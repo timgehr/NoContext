@@ -1,5 +1,6 @@
 import time
 import random
+from google.cloud import firestore
 
 INFO = [0, 0, 0, 0, 0, 0, 0]
 
@@ -189,7 +190,18 @@ def Round(INFO):
     
     #WHICH HECKIN NERD SAID:
     #Print INFO[6]
-    
+    db = firestore.Client()
+    data = {
+    u'a': , HECKINNERDS[indices[order[1]]]
+    u'b': HECKINNERDS[indices[order[1]]],
+    u'c': HECKINNERDS[indices[order[1]]],
+    u'd': HECKINNERDS[indices[order[1]]],
+    u'Quote': INFO[6],
+    u'Answer:': INFO[5],
+    }
+
+    # Add a new doc in collection 'cities' with ID 'LA'
+    db.collection(u'users').document(u'INFO').set(data)
     #Choices
     #HECKINNERDS[indices[order[1]]]
     #HECKINNERDS[indices[order[2]]]
