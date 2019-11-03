@@ -1,0 +1,3 @@
+If we want to use these pics we can, the alternative being something with the avatar urls
+The avatar urls are included in the parsed file but I found that it was easier to use if they
+were saved. 
