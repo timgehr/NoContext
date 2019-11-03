@@ -4,10 +4,10 @@ from google.cloud import firestore
 
 INFO = [0, 0, 0, 0, 0, 0, 0]
 
-HECKINNERDS = ["BryceRombach", "EthanBrody", "StoneBrackett", "PaxtonLeaf",
-               "NateWoo", "BenGochanour", "BrettFrancis", "JordanZimmerman",
-               "PerryPowell", "AlexParsells", "JamesMartindale", "TimGehrsitz",
-               "ErikFretland", "JacobLuft"]
+HECKINNERDS = [" BryceRombach", " EthanBrody", " StoneBrackett", " PaxtonLeaf",
+               " NateWoo", " BenGochanour", " BrettFrancis", " JordanZimmerman",
+               " PerryPowell", " AlexParsells", " JamesMartindale", " TimGehrsitz",
+               " ErikFretland", " JacobLuft"]
 
 def generaterandom():
     """Generates and reads random line""" 
@@ -190,26 +190,26 @@ def Round(INFO):
     
     #WHICH HECKIN NERD SAID:
     #Print INFO[6]
-    db = firestore.Client()
-    data = {
-    u'a': , HECKINNERDS[indices[order[1]]]
-    u'b': HECKINNERDS[indices[order[1]]],
-    u'c': HECKINNERDS[indices[order[1]]],
-    u'd': HECKINNERDS[indices[order[1]]],
-    u'Quote': INFO[6],
-    u'Answer:': INFO[5],
-    }
+    #db = firestore.Client()
+    #data = {
+    #u'a': HECKINNERDS[indices[order[0]]],
+    #u'b': HECKINNERDS[indices[order[1]]],
+    #'c': HECKINNERDS[indices[order[2]]],
+    #u'd': HECKINNERDS[indices[order[3]]],
+    #u'Quote': INFO[6],
+    #u'Answer:': INFO[5],
+    #}
 
     # Add a new doc in collection 'cities' with ID 'LA'
-    db.collection(u'users').document(u'INFO').set(data)
-    #Choices
-    #HECKINNERDS[indices[order[1]]]
-    #HECKINNERDS[indices[order[2]]]
-    #HECKINNERDS[indices[order[3]]]
-    #HECKINNERDS[indices[order[4]]]
-    
-    #print answer
-    #INFO[6]
+    #db.collection(u'users').document(u'INFO').set(data)
+
+    print("Who Said:{}".format(INFO[6]))
+    print("a.",HECKINNERDS[indices[order[0]]])
+    print("b.",HECKINNERDS[indices[order[1]]])
+    print("c.",HECKINNERDS[indices[order[2]]])
+    print("d.",HECKINNERDS[indices[order[3]]])
+    print("Answer:",INFO[5])
+
     return None
 
 def main():
@@ -219,7 +219,7 @@ def main():
     while i < RoundsPlayed:
         generaterandom()
         Round(INFO)
-        i = RoundsPlayed + 1
+        i = i + 1
 
     return None
 
