@@ -1,7 +1,7 @@
 <template>
   <div id="player">
     <input v-model="player.name" placeholder="Your Name" class="playerName"/>
-    <button v-on:click="playerJoin" class="play">Play!</button>
+     <router-link @click.native='playerJoin' to="playerQuiz" tag="button" class="play">Play!</router-link>
     <h3 class="errMsg">{{msg}}</h3>
   </div>
 </template>
@@ -34,8 +34,9 @@ export default Vue.extend({
         this.player.name = ''
       } else {
         this.player.color = Math.floor(7 * Math.random())
-        db.collection('players').add(this.player)
+        db.collection('players').doc(this.player.name).set(this.player)
         this.msg = ''
+        this.$store.commit('setCurrPlayer', this.player.name)
       }
     }
   }

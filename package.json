@@ -35,9 +35,11 @@
       "@vue/standard",
       "@vue/typescript"
     ],
-    "rules": {},
     "parserOptions": {
       "parser": "@typescript-eslint/parser"
+    },
+    "rules": {
+      "vue/require-v-for-key": "warning"
     }
   },
   "postcss": {

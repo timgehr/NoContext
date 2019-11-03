@@ -4,7 +4,7 @@
     <div class="playerTable">
       <h2 v-for="player in players" v-bind:style="{color: colors[player.color]}" v-bind:key="player" class="players" v-on:click="removePlayer(player.name)">{{player.name}}</h2>
     </div>
-    <router-link v-on:click="startGame" to="/quiz" tag="button" class="startGame">START GAME</router-link>
+    <router-link @click.native='startGame' to="quiz" tag="button" class="startGame">START GAME</router-link>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import db from '@/fb'
 export default Vue.extend({
   data () {
     return {
-      randNum: 0,
+      nextPg: 'quiz',
       players: [],
       colors: ['rgb(184, 0, 0)', 'rgb(20, 173, 6)', 'rgb(230, 122, 0)', 'rgb(0, 67, 211)', 'rgb(0, 175, 228)', 'rgb(202, 0, 142)', 'rgb(126, 0, 230)']
     }
@@ -25,7 +25,11 @@ export default Vue.extend({
       // db.collection('players').delete()
     },
     startGame: function () {
-      this.$store.commit('setPlayers', this.players)
+      if (this.players.size < 2) {
+        this.nextPg = '/host'
+      } else {
+        this.$store.commit('setPlayers', this.players)
+      }
     }
   },
   created () {
