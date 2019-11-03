@@ -200,7 +200,6 @@ def Round(INFO):
     #u'Answer:': INFO[5],
     #}
 
-    # Add a new doc in collection 'cities' with ID 'LA'
     #db.collection(u'users').document(u'INFO').set(data)
 
     print("Who Said:{}".format(INFO[6]))
@@ -209,6 +208,7 @@ def Round(INFO):
     print("c.",HECKINNERDS[indices[order[2]]])
     print("d.",HECKINNERDS[indices[order[3]]])
     print("Answer:",INFO[5])
+
 
     return None
 
