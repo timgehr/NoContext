@@ -1,13 +1,10 @@
 <template>
   <div id="quiz">
-    <div id="score">
-      {{this.$store.state.currPlayer}}
-    </div>
     <div>
-      <button v-on:click="respond(1)" class="ans a1">A</button>
-      <button v-on:click="respond(2)" class="ans a2">B</button>
-      <button v-on:click="respond(3)" class="ans a3">C</button>
-      <button v-on:click="respond(4)" class="ans a4">D</button>
+      <button v-on:click="respond(1)" class="ans a1">{{answers[0].ans0}}</button>
+      <button v-on:click="respond(2)" class="ans a2">{{answers[0].ans1}}</button>
+      <button v-on:click="respond(3)" class="ans a3">{{answers[0].ans2}}</button>
+      <button v-on:click="respond(4)" class="ans a4">{{answers[0].ans3}}</button>
     </div>
   </div>
 </template>
@@ -19,7 +16,8 @@ import db from '@/fb'
 export default Vue.extend({
   data () {
     return {
-      responded: false
+      responded: false,
+      answers: []
     }
   },
   methods: {
@@ -29,6 +27,16 @@ export default Vue.extend({
       })
       this.responded = true
     }
+  },
+  created () {
+    db.collection('quiz').onSnapshot(res => {
+      const changes = res.docChanges()
+      changes.forEach(change => {
+        this.answers.push({
+          ...change.doc.data()
+        })
+      })
+    })
   }
 })
 </script>
@@ -52,7 +60,8 @@ export default Vue.extend({
   margin-bottom: 10px;
   border: 0px;
   border-radius: 28px;
-  height: 25vh;
+  height: 200px;
+  max-height: calc(25vh - 23px);
   min-width: 60vw;
   width: 400px;
   max-width: 90vw;
@@ -64,8 +73,8 @@ export default Vue.extend({
 }
 
 .a2 {
-  background: rgb(143, 131, 27);
-  box-shadow: 0px 13px rgb(114, 104, 18);
+  background: rgb(172, 156, 17);
+  box-shadow: 0px 13px rgb(134, 122, 14);
 }
 
 .a3 {
@@ -79,29 +88,34 @@ export default Vue.extend({
 }
 
 .a1:active {
-  box-shadow: 0px 3pxrgb(102, 30, 28);
+  transition: all 0.1s;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  box-shadow: 0px 3px rgb(102, 30, 28);
 }
 
 .a2:active {
-  box-shadow: 0px 3px rgb(114, 104, 18);
+  transition: all 0.1s;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  box-shadow: 0px 3px rgb(134, 122, 14);
 }
 
 .a3:active {
+  transition: all 0.1s;
+  margin-top: 20px;
+  margin-bottom: 0px;
   box-shadow: 0px 3px rgb(46, 88, 35);
 }
 
 .a4:active {
+  transition: all 0.1s;
+  margin-top: 20px;
+  margin-bottom: 0px;
   box-shadow: 0px 3px rgb(33, 46, 107);
 }
 
 .ans:focus {
   outline: 0px;
-}
-
-.ans:active {
-  transition: all 0.1s;
-  margin-top: 20px;
-  margin-bottom: 0px;
-  box-shadow: 0px 0px;
 }
 </style>
