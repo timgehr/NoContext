@@ -82,7 +82,15 @@ export default Vue.extend({
       for (var i = 0; i < this.players.length; i++) {
         db.collection('players').doc(this.players[i].name).delete()
       }
-      db.collection('quiz').doc('quiz').delete()
+      db.collection('quiz').doc('quiz').update({
+        ans1: null,
+        ans2: null,
+        ans3: null,
+        ans0: null,
+        correct: 0,
+        players: 0,
+        ready: false
+      })
       this.$router.push({ path: '/' })
     },
     playRound () {
