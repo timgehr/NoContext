@@ -25,11 +25,12 @@ export default Vue.extend({
       // db.collection('players').delete()
     },
     startGame: function () {
-      if (this.players.size < 2) {
-        this.nextPg = '/host'
-      } else {
-        this.$store.commit('setPlayers', this.players)
-      }
+      this.$store.commit('setPlayers', this.players)
+      db.collection('quiz').doc('quiz').update({
+        ready: false,
+        playersIn: 0,
+        players: this.players.length
+      })
     }
   },
   created () {
@@ -40,6 +41,9 @@ export default Vue.extend({
           ...change.doc.data()
         })
       })
+    })
+    db.collection('quiz').doc('quiz').update({
+      ready: false
     })
   }
 })

@@ -1,10 +1,13 @@
 <template>
   <div id="quiz">
-    <div>
-      <button v-on:click="respond(1)" class="ans a1">{{answers[0].ans0}}</button>
-      <button v-on:click="respond(2)" class="ans a2">{{answers[0].ans1}}</button>
-      <button v-on:click="respond(3)" class="ans a3">{{answers[0].ans2}}</button>
-      <button v-on:click="respond(4)" class="ans a4">{{answers[0].ans3}}</button>
+    <div v-show="!responded" v-bind:key="responded">
+      <button v-on:click="respond(1)" class="ans a1">{{quiz.ans0}}</button>
+      <button v-on:click="respond(2)" class="ans a2">{{quiz.ans1}}</button>
+      <button v-on:click="respond(3)" class="ans a3">{{quiz.ans2}}</button>
+      <button v-on:click="respond(4)" class="ans a4">{{quiz.ans3}}</button>
+    </div>
+    <div v-show="responded" v-bind:key="responded">
+      <h1 class="score">Waiting for everyone else...</h1>
     </div>
   </div>
 </template>
@@ -16,8 +19,9 @@ import db from '@/fb'
 export default Vue.extend({
   data () {
     return {
+      show: false,
       responded: false,
-      answers: []
+      quiz: null
     }
   },
   methods: {
@@ -25,16 +29,20 @@ export default Vue.extend({
       db.collection('players').doc(this.$store.state.currPlayer).update({
         response: inputNum
       })
-      this.responded = true
+    }
+  },
+  beforeUpdate () {
+    if (this.quiz.ready === false) {
+      this.$router.push({
+        path: '/score'
+      })
     }
   },
   created () {
     db.collection('quiz').onSnapshot(res => {
       const changes = res.docChanges()
       changes.forEach(change => {
-        this.answers.push({
-          ...change.doc.data()
-        })
+        this.quiz = change.doc.data()
       })
     })
   }
@@ -42,11 +50,10 @@ export default Vue.extend({
 </script>
 
 <style>
-#score {
-  height: 30px;
-  background: white;
-  color: black;
-  text-align: center;
+.score {
+  margin-top: 0px;
+  padding-top: 40px;
+  font-size: 60px;
   font-weight: bold;
 }
 

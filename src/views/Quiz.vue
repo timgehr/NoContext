@@ -6,12 +6,12 @@
     </div>
     <div id="answers">
       <h1 class="answers" style="background: rgb(138, 46, 43);">{{ans[0]}}</h1>
-      <h1 class="answers" style="background: rgb(143, 131, 27);">{{ans[1]}}</h1>
+      <h1 class="answers" style="background: rgb(172, 156, 17);">{{ans[1]}}</h1>
       <h1 class="answers" style="background: rgb(71, 134, 56);">{{ans[2]}}</h1>
       <h1 class="answers" style="background: rgb(57, 72, 158);">{{ans[3]}}</h1>
     </div>
-    <button v-on:click="playRound" class="ans a1">Next Round</button>
-    <button v-on:click="checkPlayerRight" class="ans a1">Check Answers</button>
+    <h2 class="playerLi">{{inPlayers.length}} / {{this.quiz[0].players}}</h2>
+    <button v-on:click="endGame">end game</button>
   </div>
 </template>
 
@@ -73,12 +73,23 @@ export default Vue.extend({
       },
       ans: [],
       correctAnswer: 0,
-      evonein: false
+      playersIn: 0,
+      quiz: []
     }
   },
   methods: {
+    endGame () {
+      for (var i = 0; i < this.players.length; i++) {
+        db.collection('players').doc(this.players[i].name).delete()
+      }
+      db.collection('quiz').doc('quiz').delete()
+      this.$router.push({ path: '/' })
+    },
     playRound () {
-      this.lineno = Math.ceil(Math.random() * 13912)
+      db.collection('quiz').doc('quiz').update({
+        ready: true
+      })
+      this.lineno = Math.floor(Math.random() * (this.textByLine.Lines.length - 1))
       this.line = this.textByLine.Lines[this.lineno]
       var i
 
@@ -240,20 +251,20 @@ export default Vue.extend({
         ans1: this.NerdNames[indices[order[1]]],
         ans2: this.NerdNames[indices[order[2]]],
         ans3: this.NerdNames[indices[order[3]]],
-        correct: this.correctAnswer,
-        evonein: this.evonein
+        correct: this.correctAnswer
+      })
+    }
+  },
+  computed: {
+    inPlayers () {
+      return this.players.filter(function (player) {
+        return player.response > 0
       })
     },
-    checkPlayerRight () {
-      this.players.forEach(p => {
-        if (p.response === this.correctAnswer + 1) {
-          db.collection('players')
-            .doc(p.name)
-            .update({
-              score: p.score + 1
-            })
-        }
-      })
+    everyoneIn () {
+      return (this.players.filter(function (player) {
+        return player.response > 0
+      }).length === this.quiz[0].players)
     }
   },
   created () {
@@ -266,6 +277,28 @@ export default Vue.extend({
         })
       })
     })
+    db.collection('quiz').onSnapshot(res => {
+      const changes = res.docChanges()
+      changes.forEach(change => {
+        this.quiz.push({
+          ...change.doc.data()
+        })
+      })
+    })
+    this.playRound()
+  },
+  updated () {
+    if (this.everyoneIn) {
+      for (var i = 0; i < this.inPlayers.length; i++) {
+        console.log(this.inPlayers[i].response + ' ' + this.correctAnswer + 1)
+        if (this.inPlayers[i].response === this.correctAnswer + 1) {
+          db.collection('players').doc(this.inPlayers[i].name).update({
+            score: this.inPlayers[i].score + 1
+          })
+        }
+      }
+      this.$router.push({ path: '/answer' })
+    }
   }
 })
 </script>
@@ -281,7 +314,7 @@ export default Vue.extend({
   margin-bottom: 10px;
   border: 0px;
   border-radius: 20px;
-  height: 13vh;
+  height: 10vh;
   min-width: 30vw;
   width: 200px;
   max-width: 45vw;
@@ -319,14 +352,15 @@ export default Vue.extend({
   height: 45vh;
   padding: 5px 10vw 5px 10vw;
   font-style: italic;
-  font-size: 75px;
+  font-size: 80px;
+  text-shadow: 2px 2px 4px rgba(195, 184, 255, 0.781);
 }
 
 #answers {
   position: relative;
-  bottom: 40px;
+  bottom: 0px;
   margin-top: 2px;
-  margin-bottom: 2px;
+  margin-bottom: 0px;
   color: white;
   display: grid;
   padding-left: 10vw;
@@ -341,5 +375,11 @@ export default Vue.extend({
   padding-top: 4vh;
   font-size: 55px;
   border-radius: 20px;
+}
+
+.playerLi {
+  font-size: 60px;
+  margin-top: 0px;
+  padding-top: 5px;
 }
 </style>

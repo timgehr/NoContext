@@ -29,6 +29,16 @@ const routes = [
     path: '/playerQuiz',
     name: 'playerQuiz',
     component: () => import('../views/PlayerQuiz.vue')
+  },
+  {
+    path: '/answer',
+    name: 'answer',
+    component: () => import('../views/Answer.vue')
+  },
+  {
+    path: '/score',
+    name: 'score',
+    component: () => import('../views/Score.vue')
   }
 ]
 
