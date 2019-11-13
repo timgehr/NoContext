@@ -26,6 +26,7 @@ export default Vue.extend({
   },
   methods: {
     respond (inputNum) {
+      this.responded = true
       db.collection('players').doc(this.$store.state.currPlayer).update({
         response: inputNum
       })
@@ -68,7 +69,7 @@ export default Vue.extend({
   border: 0px;
   border-radius: 28px;
   height: 200px;
-  max-height: calc(25vh - 23px);
+  max-height: calc(23vh - 25px);
   min-width: 60vw;
   width: 400px;
   max-width: 90vw;

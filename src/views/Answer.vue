@@ -1,5 +1,11 @@
 <template>
   <div id="quiz">
+    <div id="answers">
+      <h1 class="answers" v-bind:style="{background: getColor(0)}">{{quiz[0].ans0}}</h1>
+      <h1 class="answers" v-bind:style="{background: getColor(1)}">{{quiz[0].ans1}}</h1>
+      <h1 class="answers" v-bind:style="{background: getColor(2)}">{{quiz[0].ans2}}</h1>
+      <h1 class="answers" v-bind:style="{background: getColor(3)}">{{quiz[0].ans3}}</h1>
+    </div>
     <div class="responders">
       <div class="rcol">
        <h1 v-for="player in playersIn1" v-bind:key="player" v-bind:style="{color: colors[player.color]}" class="playerz">{{player.name}}</h1>
@@ -13,12 +19,6 @@
       <div class="rcol">
         <h1 v-for="player in playersIn4" v-bind:key="player" v-bind:style="{color: colors[player.color]}" class="playerz">{{player.name}}</h1>
       </div>
-    </div>
-    <div id="answers">
-      <h1 class="answers" v-bind:style="{background: getColor(0)}">{{quiz[0].ans0}}</h1>
-      <h1 class="answers" v-bind:style="{background: getColor(1)}">{{quiz[0].ans1}}</h1>
-      <h1 class="answers" v-bind:style="{background: getColor(2)}">{{quiz[0].ans2}}</h1>
-      <h1 class="answers" v-bind:style="{background: getColor(3)}">{{quiz[0].ans3}}</h1>
     </div>
   </div>
 </template>
@@ -108,7 +108,7 @@ export default Vue.extend({
 }
 
 .playerz {
-  font-size: 40px;
+  font-size: 50px;
 }
 
 .rcol {
@@ -118,7 +118,7 @@ export default Vue.extend({
 #answers {
   position: relative;
   bottom: 0px;
-  margin-top: 2px;
+  margin-top: 0px;
   margin-bottom: 0px;
   color: white;
   display: grid;

@@ -352,15 +352,15 @@ export default Vue.extend({
 .which {
   margin-top: 0px;
   margin-bottom: 0px;
-  padding-top: 20px;
+  padding-top: 40px;
   font-size: 30px;
 }
 
 .quote {
-  height: 45vh;
+  height: 48vh;
   padding: 5px 10vw 5px 10vw;
   font-style: italic;
-  font-size: 80px;
+  font-size: 85px;
   text-shadow: 2px 2px 4px rgba(195, 184, 255, 0.781);
 }
 
