@@ -1,10 +1,15 @@
 <template>
   <div id="host">
     <h1 style="margin-top: 0px; padding-top: 20px;">Waiting for Everyone to Join...</h1>
-    <div class="playerTable">
-      <h2 v-for="player in players" v-bind:style="{color: colors[player.color]}" v-bind:key="player" class="players" v-on:click="removePlayer(player.name)">{{player.name}}</h2>
+    <div class="playbox">
+      <div class="playerTable">
+        <h2 v-for="player in players" v-bind:style="{color: colors[player.color]}" v-bind:key="player" class="players" v-on:click="removePlayer(player.name)">{{player.name}}</h2>
+      </div>
+      <div class="pb1">
+        <img style="height: 370px; max-height: 370px;" src="../assets/QRCode.png">
+        <router-link @click.native='startGame' to="quiz" tag="button" class="startGame">START GAME</router-link>
+      </div>
     </div>
-    <router-link @click.native='startGame' to="quiz" tag="button" class="startGame">START GAME</router-link>
   </div>
 </template>
 
@@ -22,7 +27,6 @@ export default Vue.extend({
   },
   methods: {
     removePlayer: function (name: string) {
-      // db.collection('players').delete()
     },
     startGame: function () {
       this.$store.commit('setPlayers', this.players)
@@ -50,21 +54,36 @@ export default Vue.extend({
 </script>
 
 <style>
-.playerTable{
+.playbox {
+  margin: 0vh 20vw 0px 20vw;
+  padding: 20px 20px 20px 20px;
+  background: white;
+  border-radius: 20px;
   display: grid;
-  grid-template-columns: 33vw 34vw 33vw;
+  grid-template-columns: 30vw 30vw;
+  min-height: 80vh;
+}
+
+.playerTable{
+  text-align: left;
+  padding-top: 30px;
+  padding-left: 30px;
+  min-height: 40vh;
   color: rgb(230, 122, 0);
+  background: rgb(234, 238, 240);
+  border-radius: 15px;
+}
+
+.pb1{
+  padding-top: 30px;
+  padding-right: 30px;
 }
 
 .players{
   margin-top: 0px;
-  font-size: 45px;
+  font-size: 51px;
   font-weight: bold;
   text-shadow: 1px 1px 1px rgba(156, 156, 156, 0.486);
-}
-
-.players:hover{
-  background: rgb(238, 177, 177);
 }
 
 .startGame{
@@ -73,8 +92,7 @@ export default Vue.extend({
   padding: 20px;
   font-size: 50px;
   font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 240px 20px 10px 20px;
   border: 0px;
   border-radius: 28px;
   height: 150px;
@@ -89,7 +107,7 @@ export default Vue.extend({
 
 .startGame:active {
   transition: all 0.1s;
-  margin-top: 20px;
+  margin-top: 250px;
   margin-bottom: 0px;
   box-shadow: 0px 3px rgb(104, 20, 20);
 }
