@@ -97,10 +97,11 @@ export default Vue.extend({
       db.collection('quiz').doc('quiz').update({
         ready: true
       })
-      this.lineno = Math.floor(Math.random() * (this.textByLine.Lines.length - 1))
-      this.line = this.textByLine.Lines[this.lineno]
+      while (!(this.line.Message.includes(' '))) {
+        this.lineno = Math.floor(Math.random() * (this.textByLine.Lines.length - 1))
+        this.line = this.textByLine.Lines[this.lineno]
+      }
       var i
-
       var indices = [0, 0, 0, 0]
       indices[0] = this.HECKINNERDS.indexOf(this.line.SentBy) // Correct Answer
 
