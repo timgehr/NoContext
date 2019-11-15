@@ -95,7 +95,7 @@ export default Vue.extend({
     setTimeout(() => this.$router.push({
       path: '/quiz'
     })
-    , 10000)
+    , 6000)
   }
 })
 </script>
